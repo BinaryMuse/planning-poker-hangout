@@ -48,7 +48,7 @@
                 <span ng-show="poker.votes[person.id]">voted</span>
               </span>
 
-              <span ng-if="poker.votesRevealed.value>
+              <span ng-if="poker.votesRevealed.value">
                 {{ poker.votes[person.id] }}
               </span>
             </li>
