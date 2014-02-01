@@ -30,6 +30,10 @@
               Votes revealed: <input type='checkbox' ng-model='poker.votesRevealed.value' ng-change='setPointsRevealed()'>
             </div>
           </div>
+
+          <div ng-if="poker.moderator.id != poker.me.id">
+            <button ng-click='becomeModerator()'>Become Moderator</button>
+          </div>
         </div>
 
         <div ng-controller="VoteController">
@@ -109,6 +113,11 @@
 
         $scope.setVotesRevealed = function() {
           gapi.hangout.data.setValue('votesRevealed', angular.toJson(planningPoker.votesRevealed));
+        };
+
+        $scope.becomeModerator = function() {
+          poker.moderator.id = poker.me.id;
+          gapi.hangout.data.setValue('moderator', angular.toJson(planningPoker.moderator));
         };
       });
 
