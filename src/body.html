@@ -3,13 +3,14 @@
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.min.js"></script>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 
-<div id='app-root'>
+<div id='app-root' style='margin: 5px;'>
   <div ng-controller="DebugController">
   </div>
 
   <div ng-controller='ModeratorController'>
     <div ng-if="poker.moderator.id == poker.me.id">
       <h1>Moderator</h1>
+
       <form role="form">
         <div class='form-group'>
           <label for="availablePoints">Point Range</label>
@@ -17,8 +18,8 @@
         </div>
 
         <div class='form-group'>
-          <label for="description">Item Description</label>
-          <textarea class='form-control' id='description' rows='2' ng-model="poker.description.text"></textarea>
+          <textarea class='form-control' id='description' rows='2'
+            ng-model="poker.description.text" placeholder='Item Description/Link'></textarea>
         </div>
 
         <div class='form-group'>
