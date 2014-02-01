@@ -116,7 +116,6 @@
             description: angular.toJson($scope.poker.description),
             votesRevealed: angular.toJson($scope.poker.votesRevealed)
           });
-          $scope.poker = angular.copy(poker);
         };
 
         $scope.becomeModerator = function() {
