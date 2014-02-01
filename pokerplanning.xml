@@ -81,7 +81,7 @@
           poker.me = gapi.hangout.getLocalParticipant();
         });
 
-        gapi.hangout.data.onStateChanged.add(function(event) {
+        var updateState = function() {
           $rootScope.$apply(function() {
             var state = gapi.hangout.data.getState();
             for (key in state) {
@@ -91,6 +91,10 @@
             $log.debug(poker);
             $rootScope.$broadcast('stateChanged', poker);
           });
+        };
+
+        gapi.hangout.data.onStateChanged.add(function(event) {
+          updateState();
         });
 
         gapi.hangout.onParticipantsChanged.add(function(event) {
@@ -98,6 +102,8 @@
             poker.participants = event.participants;
           });
         });
+
+        setTimeout(updateState);
       });
 
       app.controller('DebugController', function($scope, poker) {
