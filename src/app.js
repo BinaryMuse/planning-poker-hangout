@@ -81,7 +81,7 @@ app.controller('VoteController', function($scope, poker) {
   };
 
   $scope.voted = function(person) {
-    console.log 'person vote is:', poker.votes[person.person.id];
+    console.log('person vote is:', poker.votes[person.person.id]);
     return !isNaN(poker.votes[person.person.id]) && poker.votes[person.person.id] !== null
   };
 });
