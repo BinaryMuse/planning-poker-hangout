@@ -17,14 +17,14 @@
           <div ng-if="poker.moderator.id == poker.me.id">
             <h1>Moderator Controls</h1>
             <div>
-              Points: <input type='text' ng-model='poker.availablePoints' ng-list ng-change='setPoints()'>
+              Points: <input type='text' ng-model='availablePoints' ng-list ng-change='setPoints(availablePoints)'>
             </div>
             <div>
               Current Item Description:<br>
-              <textarea ng-model="poker.description.text" ng-change="setDescription()"></textarea>
+              <textarea ng-model="description" ng-change="setDescription(description)"></textarea>
             </div>
             <div>
-              Votes revealed: <input type='checkbox' ng-model='poker.votesRevealed.value' ng-change='setPointsRevealed()'>
+              Votes revealed: <input type='checkbox' ng-model='votesRevealed' ng-change='setPointsRevealed(votesRevealed)'>
             </div>
           </div>
 
@@ -100,16 +100,16 @@
       app.controller('ModeratorController', function($scope, poker) {
         $scope.poker = poker;
 
-        $scope.setPoints = function() {
-          gapi.hangout.data.setValue('availablePoints', angular.toJson(poker.availablePoints));
+        $scope.setPoints = function(points) {
+          gapi.hangout.data.setValue('availablePoints', angular.toJson(points));
         };
 
-        $scope.setDescription = function() {
-          gapi.hangout.data.setValue('description', angular.toJson(poker.description));
+        $scope.setDescription = function(description) {
+          gapi.hangout.data.setValue('description', angular.toJson({text: description}));
         };
 
-        $scope.setVotesRevealed = function() {
-          gapi.hangout.data.setValue('votesRevealed', angular.toJson(poker.votesRevealed));
+        $scope.setVotesRevealed = function(revealed) {
+          gapi.hangout.data.setValue('votesRevealed', angular.toJson({value: revealed}));
         };
 
         $scope.becomeModerator = function() {
