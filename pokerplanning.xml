@@ -116,7 +116,7 @@
         };
 
         $scope.becomeModerator = function() {
-          poker.moderator.id = poker.me.id;
+          $scope.poker.moderator.id = poker.me.id;
           gapi.hangout.data.setValue('moderator', angular.toJson(poker.moderator));
         };
       });
