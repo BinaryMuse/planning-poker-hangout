@@ -59,17 +59,17 @@
     <div ng-bind-html="poker.description.text | linky"></div>
 
     <div class='btn-group text-center'>
-      <button ng-repeat='point in poker.availablePoints' class='btn'
+      <button ng-repeat='point in poker.availablePoints' class='btn btn-default'
         ng-click='vote(point)'>{{point}}</button>
     </div>
   </div>
 
   <div ng-controller="ParticipantsController">
-    <ul>
+    <ul class='list-unstyled'>
       <li ng-repeat="person in poker.participants"
         ng-class="{'text-success': voted(person), 'text-danger': !voted(person)}">
         <span ng-show="!voted(person)" class="glyphicon glyphicon-remove"></span>
-        <span ng-show="poker.votes[person.id]" class="glyphicon glyphicon-ok"></span>
+        <span ng-show="voted(person)" class="glyphicon glyphicon-ok"></span>
         {{ person.person.displayName }}
         <em ng-if="!poker.votesRevealed.value" class='text-muted'>
           <span ng-show="!voted(person)">...</span>
