@@ -31,6 +31,10 @@
       app.run(function($log, $rootScope, planningPoker) {
         $log.debug('planning poker started');
 
+        $rootScope.$apply(function() {
+          planningPoker.me = gapi.hangout.getLocalParticipant();
+        });
+
         gapi.hangout.data.onStateChanged.add(function(event) {
           $rootScope.$apply(function() {
             var state = gapi.hangout.data.getState();
