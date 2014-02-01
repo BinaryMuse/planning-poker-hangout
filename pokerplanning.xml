@@ -32,6 +32,7 @@
         $log.debug('planning poker started');
 
         $rootScope.$apply(function() {
+          planningPoker.participants = gapi.hangout.getParticipants();
           planningPoker.me = gapi.hangout.getLocalParticipant();
         });
 
