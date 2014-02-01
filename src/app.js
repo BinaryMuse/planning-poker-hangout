@@ -72,8 +72,9 @@ app.controller('VoteController', function($scope, poker) {
   $scope.poker = poker;
 
   $scope.vote = function(points) {
-    poker.votes[poker.me.person.id] = parseInt(points, 10);
-    gapi.hangout.data.setValue('votes', angular.toJson(poker.votes));
+    var votes = angular.copy(poker.votes);
+    votes[poker.me.person.id] = parseInt(points, 10);
+    gapi.hangout.data.setValue('votes', angular.toJson(votes));
   };
 
   $scope.myVote = function() {

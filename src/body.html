@@ -61,7 +61,14 @@
         {{ person.person.displayName }}
         <em ng-if="!poker.votesRevealed.value" class='text-muted'>
           <span ng-show="!voted(person)">...</span>
-          <span ng-show="voted(person)">ready</span>
+          <span ng-show="voted(person)">
+            <span ng-show="person.person.id != poker.me.person.id">
+              voted
+            </span>
+            <span ng-show="person.person.id == poker.me.person.id">
+              poker.votes[person.person.id]
+            </span>
+          </span>
         </em>
 
         <span ng-if="poker.votesRevealed.value">
