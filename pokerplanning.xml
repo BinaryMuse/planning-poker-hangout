@@ -10,11 +10,45 @@
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
 
       <div id='app-root'>
-        <div ng-controller='TestController'>
-          <input type='text' ng-model='availablePoints' ng-list ng-change='setPoints(availablePoints)'>
+        <div ng-controller="DebugController">
           <pre>
             {{poker | json}}
           </pre>
+        </div>
+
+        <div ng-controller='ModeratorController'>
+          <div ng-if="poker.moderator.id == poker.me.id">
+            <h1>Moderator Controls</h1>
+            <div>
+              Points: <input type='text' ng-model='poker.availablePoints' ng-list ng-change='setPoints()'>
+            </div>
+            <div>
+              Current Item Description:<br>
+              <textarea ng-model="description" ng-change="setDescription(description)"></textarea>
+            </div>
+            <div>
+              Votes revealed: <input type='checkbox' ng-model='poker.votesRevealed.value' ng-change='setPointsRevealed()'>
+            </div>
+          </div>
+        </div>
+
+        <div ng-controller="VoteController">
+        </div>
+
+        <div ng-controller="ParticipantsController">
+          <ul>
+            <li ng-repeat="person in poker.participants">
+              {{ person.person.displayName }} -
+              <span ng-if="!poker.votesRevealed.value>
+                <span ng-show="!poker.votes[person.id]">...</span>
+                <span ng-show="poker.votes[person.id]">voted</span>
+              </span>
+
+              <span ng-if="poker.votesRevealed.value>
+                {{ poker.votes[person.id] }}
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -24,7 +58,11 @@
       app.factory('planningPoker', function() {
         return {
           participants: [],
-          availablePoints: [0, 1, 2, 3, 5, 8, 13]
+          availablePoints: [0, 1, 2, 3, 5, 8, 13],
+          moderator: { id: null },
+          description: { text: null },
+          votesRevealed: { value: false },
+          votes: {}
         };
       });
 
@@ -54,11 +92,23 @@
         });
       });
 
-      app.controller('TestController', function($scope, planningPoker) {
+      app.controller('DebugController', function($scope, planningPoker) {
+        $scope.poker = planningPoker;
+      });
+
+      app.controller('ModeratorController', function($scope, planningPoker) {
         $scope.poker = planningPoker;
 
-        $scope.setPoints = function(points) {
-          gapi.hangout.data.setValue('availablePoints', angular.toJson(points));
+        $scope.setPoints = function() {
+          gapi.hangout.data.setValue('availablePoints', angular.toJson(planningPoker.availablePoints));
+        };
+
+        $scope.setDescription = function() {
+          gapi.hangout.data.setValue('description', angular.toJson(planningPoker.description));
+        };
+
+        $scope.setVotesRevealed = function() {
+          gapi.hangout.data.setValue('votesRevealed', angular.toJson(planningPoker.votesRevealed));
         };
       });
 
