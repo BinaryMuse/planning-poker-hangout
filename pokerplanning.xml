@@ -23,7 +23,7 @@
 
       app.factory('planningPoker', function() {
         return {
-          participants: [],
+          $participants: [],
           availablePoints: [0, 1, 2, 3, 5, 8, 13]
         };
       });
@@ -39,6 +39,12 @@
             }
             $log.debug('State updated to:');
             $log.debug(planningPoker);
+          });
+        });
+
+        gapi.hangout.onParticipantsChanged.add(function(event) {
+          $rootScope.$apply(function() {
+            planningPoker.$participants = event.participants;
           });
         });
       });
