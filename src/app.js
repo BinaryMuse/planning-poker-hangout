@@ -73,8 +73,12 @@ app.controller('VoteController', function($scope, poker) {
 
   $scope.vote = function(points) {
     votes = angular.copy(poker.votes);
-    votes[poker.me.id] = points;
+    votes[poker.me.id] = parseInt(points, 10);
     gapi.hangout.data.setValue('votes', angular.toJson(votes));
+  };
+
+  $scope.voted = function(person) {
+    $scope.poker.votes[person.id] || $scope.poker.votes[person.id] == 0
   };
 });
 
