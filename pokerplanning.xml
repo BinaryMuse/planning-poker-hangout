@@ -7,13 +7,11 @@
   <Content type="html">
     <![CDATA[
 <style>
-body {
-  color: blue;
-}
 </style>
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.min.js"></script>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 
 <div id='app-root'>
   <div ng-controller="DebugController">
