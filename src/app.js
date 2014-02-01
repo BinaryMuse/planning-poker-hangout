@@ -82,7 +82,7 @@ app.controller('VoteController', function($scope, poker) {
   };
 
   $scope.voted = function(person) {
-    return $scope.poker.votes[person.id] || $scope.poker.votes[person.id] == 0
+    return !isNaN($scope.poker.votes[person.id]) && $scope.poker.votes[person.id] !== null
   };
 });
 
