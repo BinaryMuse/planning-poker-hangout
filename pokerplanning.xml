@@ -7,10 +7,25 @@
   <Content type="html">
     <![CDATA[
       <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
-      <script src="http://binarymuse.github.io/planning-poker-hangout/js/angular.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
       <div id='app-root'>
       </div>
-      <script src="http://binarymuse.github.io/planning-poker-hangout/js/app.js"></script>
+      <script>
+      var app = angular.module('planning-poker', []);
+
+      app.run(function($log) {
+        alert('testing');
+        $log.debug('planning poker started');
+      });
+
+      function initApp() {
+        var root = document.getElementById('app-root');
+        angular.bootstrap(root, ['planning-poker']);
+        console.log('app bootstrapped');
+      }
+
+      gapi.hangout.onApiReady.add(initApp);
+      </script>
     ]]>
   </Content>
 </Module>
