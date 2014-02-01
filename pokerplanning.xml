@@ -43,7 +43,7 @@
           <ul>
             <li ng-repeat="person in poker.participants">
               {{ person.person.displayName }} -
-              <span ng-if="!poker.votesRevealed.value>
+              <span ng-if="!poker.votesRevealed.value">
                 <span ng-show="!poker.votes[person.id]">...</span>
                 <span ng-show="poker.votes[person.id]">voted</span>
               </span>
