@@ -104,14 +104,15 @@
       });
 
       app.controller('ModeratorController', function($scope, poker) {
-        $scope.poker = poker;
+        $scope.poker = angular.copy(poker);
 
         $scope.update = function() {
           gapi.hangout.data.submitDelta({
-            availablePoints: angular.toJson(poker.availablePoints),
-            description: angular.toJson(poker.description),
-            votesRevealed: angular.toJson(poker.votesRevealed)
+            availablePoints: angular.toJson($scope.poker.availablePoints),
+            description: angular.toJson($scope.poker.description),
+            votesRevealed: angular.toJson($scope.poker.votesRevealed)
           });
+          $scope.poker = angular.copy(poker);
         };
 
         $scope.becomeModerator = function() {
