@@ -121,6 +121,14 @@
         };
       });
 
+      app.controller('VoteController', function($scope, planningPoker) {
+        $scope.poker = planningPoker;
+      });
+
+      app.controller('ParticipantsController', function($scope, planningPoker) {
+        $scope.poker = planningPoker;
+      });
+
       function initApp() {
         var root = document.getElementById('app-root');
         angular.bootstrap(root, ['planning-poker']);
