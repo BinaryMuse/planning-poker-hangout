@@ -8,20 +8,47 @@
     <![CDATA[
       <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+
       <div id='app-root'>
+        <div ng-controller='TestController'>
+          <input type='text' ng-model='availablePoints' ng-list ng-change='setPoints(availablePoints)'>
+          <pre>
+            {{poker | json}}
+          </pre>
+        </div>
       </div>
+
       <script>
       var app = angular.module('planning-poker', []);
 
-      app.run(function($log) {
-        alert('testing');
+      app.factory('planningPoker', function() {
+        return {
+        };
+      });
+
+      app.run(function($log, $rootScope, planningPoker) {
         $log.debug('planning poker started');
+
+        gapi.hangout.data.onStateChanged.add(function(event) {
+          $rootScope.$apply(function() {
+            angular.copy(planningPoker, gapi.hangout.data.getState());
+            $log.debug('State updated to:');
+            $log.debug(planningPoker);
+          });
+        });
+      });
+
+      app.controller('TestController', function($scope, planningPoker) {
+        $scope.poker = planningPoker;
+
+        $scope.setPoints = function(points) {
+          gapi.hangout.data.setValue('availablePoints', points);
+        };
       });
 
       function initApp() {
         var root = document.getElementById('app-root');
         angular.bootstrap(root, ['planning-poker']);
-        console.log('app bootstrapped');
       }
 
       gapi.hangout.onApiReady.add(initApp);
