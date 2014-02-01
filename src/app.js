@@ -63,7 +63,7 @@ app.controller('ModeratorController', function($scope, poker) {
   };
 
   $scope.becomeModerator = function() {
-    $scope.poker.moderator.id = poker.me.id;
+    $scope.poker.moderator.id = poker.me.person.id;
     gapi.hangout.data.setValue('moderator', angular.toJson($scope.poker.moderator));
   };
 });
@@ -73,16 +73,16 @@ app.controller('VoteController', function($scope, poker) {
 
   $scope.vote = function(points) {
     votes = angular.copy(poker.votes);
-    votes[poker.me.id] = parseInt(points, 10);
+    votes[poker.me.person.id] = parseInt(points, 10);
     gapi.hangout.data.setValue('votes', angular.toJson(votes));
   };
 
   $scope.myVote = function() {
-    return $scope.poker.votes[$scope.poker.me.id];
+    return $scope.poker.votes[$scope.poker.me.person.id];
   };
 
   $scope.voted = function(person) {
-    return !isNaN($scope.poker.votes[person.id]) && $scope.poker.votes[person.id] !== null
+    return !isNaN($scope.poker.votes[person.person.id]) && $scope.poker.votes[person.person.id] !== null
   };
 });
 

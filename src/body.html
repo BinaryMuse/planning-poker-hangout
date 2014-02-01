@@ -8,7 +8,7 @@
   </div>
 
   <div ng-controller='ModeratorController'>
-    <div ng-if="poker.moderator.id == poker.me.id">
+    <div ng-if="poker.moderator.id == poker.me.person.id">
       <p class='lead'>Moderator</p>
 
       <form role="form">
@@ -37,7 +37,7 @@
       </form>
     </div>
 
-    <div ng-if="poker.moderator.id != poker.me.id" class='text-center'>
+    <div ng-if="poker.moderator.id != poker.me.person.id" class='text-center'>
       <button class='btn btn-default' ng-click='becomeModerator()'>Become Moderator</button>
     </div>
 
@@ -67,7 +67,7 @@
         </em>
 
         <span ng-if="poker.votesRevealed.value">
-          {{ poker.votes[person.id] }}
+          {{ poker.votes[person.person.id] }}
         </span>
       </li>
     </ul>
