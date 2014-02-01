@@ -31,7 +31,10 @@
 
         gapi.hangout.data.onStateChanged.add(function(event) {
           $rootScope.$apply(function() {
-            angular.copy(planningPoker, gapi.hangout.data.getState());
+            var state = gapi.hangout.data.getState();
+            for (key in state) {
+              planningPoker[key] = angular.fromJson(state[key]);
+            }
             $log.debug('State updated to:');
             $log.debug(planningPoker);
           });
@@ -42,7 +45,7 @@
         $scope.poker = planningPoker;
 
         $scope.setPoints = function(points) {
-          gapi.hangout.data.setValue('availablePoints', points);
+          gapi.hangout.data.setValue('availablePoints', angular.toJson(points));
         };
       });
 
