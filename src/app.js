@@ -72,9 +72,8 @@ app.controller('VoteController', function($scope, poker) {
   $scope.poker = poker;
 
   $scope.vote = function(points) {
-    votes = angular.copy(poker.votes);
-    votes[poker.me.person.id] = parseInt(points, 10);
-    gapi.hangout.data.setValue('votes', angular.toJson(votes));
+    poker.votes[poker.me.person.id] = parseInt(points, 10);
+    gapi.hangout.data.setValue('votes', angular.toJson(poker.votes));
   };
 
   $scope.myVote = function() {
@@ -82,7 +81,8 @@ app.controller('VoteController', function($scope, poker) {
   };
 
   $scope.voted = function(person) {
-    return !isNaN($scope.poker.votes[person.person.id]) && $scope.poker.votes[person.person.id] !== null
+    console.log 'person vote is:', poker.votes[person.person.id];
+    return !isNaN(poker.votes[person.person.id]) && poker.votes[person.person.id] !== null
   };
 });
 
