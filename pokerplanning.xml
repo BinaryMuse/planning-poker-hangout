@@ -11,9 +11,6 @@
 
       <div id='app-root'>
         <div ng-controller="DebugController">
-          <pre>
-            {{poker | json}}
-          </pre>
         </div>
 
         <div ng-controller='ModeratorController'>
@@ -24,7 +21,7 @@
             </div>
             <div>
               Current Item Description:<br>
-              <textarea ng-model="description" ng-change="setDescription(description)"></textarea>
+              <textarea ng-model="poker.description.text" ng-change="setDescription()"></textarea>
             </div>
             <div>
               Votes revealed: <input type='checkbox' ng-model='poker.votesRevealed.value' ng-change='setPointsRevealed()'>
