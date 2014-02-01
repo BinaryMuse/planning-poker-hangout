@@ -56,7 +56,7 @@
       </div>
 
       <script>
-      var app = angular.module('planning-poker', []);
+      var app = angular.module('planning-poker', ['ngSanitize']);
 
       app.factory('poker', function() {
         return {
