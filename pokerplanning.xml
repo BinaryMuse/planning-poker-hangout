@@ -101,6 +101,9 @@
 
       app.controller('ModeratorController', function($scope, poker) {
         $scope.poker = poker;
+        $scope.availablePoints = poker.availablePoints;
+        $scope.description = poker.description.text;
+        $scope.votesRevealed = poker.votesRevealed.value;
 
         $scope.setPoints = function(points) {
           gapi.hangout.data.setValue('availablePoints', angular.toJson(points));
