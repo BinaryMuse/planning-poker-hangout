@@ -59,7 +59,7 @@
       <script>
       var app = angular.module('planning-poker', []);
 
-      app.factory('planningPoker', function() {
+      app.factory('poker', function() {
         return {
           participants: [],
           availablePoints: [0, 1, 2, 3, 5, 8, 13],
@@ -70,63 +70,63 @@
         };
       });
 
-      app.run(function($log, $rootScope, planningPoker) {
+      app.run(function($log, $rootScope, poker) {
         $log.debug('planning poker started');
 
         $rootScope.$apply(function() {
-          planningPoker.participants = gapi.hangout.getParticipants();
-          planningPoker.me = gapi.hangout.getLocalParticipant();
+          poker.participants = gapi.hangout.getParticipants();
+          poker.me = gapi.hangout.getLocalParticipant();
         });
 
         gapi.hangout.data.onStateChanged.add(function(event) {
           $rootScope.$apply(function() {
             var state = gapi.hangout.data.getState();
             for (key in state) {
-              planningPoker[key] = angular.fromJson(state[key]);
+              poker[key] = angular.fromJson(state[key]);
             }
             $log.debug('State updated to:');
-            $log.debug(planningPoker);
+            $log.debug(poker);
           });
         });
 
         gapi.hangout.onParticipantsChanged.add(function(event) {
           $rootScope.$apply(function() {
-            planningPoker.participants = event.participants;
+            poker.participants = event.participants;
           });
         });
       });
 
-      app.controller('DebugController', function($scope, planningPoker) {
-        $scope.poker = planningPoker;
+      app.controller('DebugController', function($scope, poker) {
+        $scope.poker = poker;
       });
 
-      app.controller('ModeratorController', function($scope, planningPoker) {
-        $scope.poker = planningPoker;
+      app.controller('ModeratorController', function($scope, poker) {
+        $scope.poker = poker;
 
         $scope.setPoints = function() {
-          gapi.hangout.data.setValue('availablePoints', angular.toJson(planningPoker.availablePoints));
+          gapi.hangout.data.setValue('availablePoints', angular.toJson(poker.availablePoints));
         };
 
         $scope.setDescription = function() {
-          gapi.hangout.data.setValue('description', angular.toJson(planningPoker.description));
+          gapi.hangout.data.setValue('description', angular.toJson(poker.description));
         };
 
         $scope.setVotesRevealed = function() {
-          gapi.hangout.data.setValue('votesRevealed', angular.toJson(planningPoker.votesRevealed));
+          gapi.hangout.data.setValue('votesRevealed', angular.toJson(poker.votesRevealed));
         };
 
         $scope.becomeModerator = function() {
           poker.moderator.id = poker.me.id;
-          gapi.hangout.data.setValue('moderator', angular.toJson(planningPoker.moderator));
+          gapi.hangout.data.setValue('moderator', angular.toJson(poker.moderator));
         };
       });
 
-      app.controller('VoteController', function($scope, planningPoker) {
-        $scope.poker = planningPoker;
+      app.controller('VoteController', function($scope, poker) {
+        $scope.poker = poker;
       });
 
-      app.controller('ParticipantsController', function($scope, planningPoker) {
-        $scope.poker = planningPoker;
+      app.controller('ParticipantsController', function($scope, poker) {
+        $scope.poker = poker;
       });
 
       function initApp() {
