@@ -90,6 +90,7 @@
             $log.debug('State updated to:');
             $log.debug(poker);
           });
+          $rootScope.$broadcast('stateChanged', poker);
         });
 
         gapi.hangout.onParticipantsChanged.add(function(event) {
@@ -105,6 +106,9 @@
 
       app.controller('ModeratorController', function($scope, poker) {
         $scope.poker = angular.copy(poker);
+        $scope.$on('stateChanged', function(evt, newPoker) {
+          $scope.poker = angular.copy(newPoker);
+        });
 
         $scope.update = function() {
           gapi.hangout.data.submitDelta({
