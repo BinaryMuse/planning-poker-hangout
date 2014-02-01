@@ -16,7 +16,7 @@
 
         <div ng-controller='ModeratorController'>
           <div ng-if="poker.moderator.id == poker.me.id">
-            <h1>Moderator Controls</h1>
+            <h1>Moderator</h1>
             <div>
               Points: <input type='text' ng-model='poker.availablePoints' ng-list>
             </div>
@@ -36,10 +36,14 @@
           <div ng-if="poker.moderator.id != poker.me.id">
             <button ng-click='becomeModerator()'>Become Moderator</button>
           </div>
+
+          <hr>
         </div>
 
         <div ng-controller="VoteController">
+          <div>Current item:</div>
           <div ng-bind-html="poker.description.text | linky"></div>
+          <button ng-repeat='point in poker.availablePoints' ng-click='vote(point)'>{{point}}</button>
         </div>
 
         <div ng-controller="ParticipantsController">
@@ -132,6 +136,12 @@
 
       app.controller('VoteController', function($scope, poker) {
         $scope.poker = poker;
+
+        $scope.vote = function(points) {
+          votes = angular.copy(poker.votes);
+          votes[poker.me.id] = points;
+          gapi.hangout.data.setValue('votes', angular.toJson(votes));
+        };
       });
 
       app.controller('ParticipantsController', function($scope, poker) {
