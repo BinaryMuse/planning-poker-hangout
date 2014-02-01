@@ -62,9 +62,7 @@
       <button ng-repeat='point in poker.availablePoints' class='btn btn-default'
         ng-click='vote(point)' ng-class="{'btn-primary': point == myVote()}">{{point}}</button>
     </div>
-  </div>
 
-  <div ng-controller="ParticipantsController">
     <ul class='list-unstyled'>
       <li ng-repeat="person in poker.participants"
         ng-class="{'text-success': voted(person), 'text-danger': !voted(person)}">
@@ -167,13 +165,8 @@ app.controller('VoteController', function($scope, poker) {
   };
 
   $scope.voted = function(person) {
-    console.log('person vote is:', poker.votes[person.person.id]);
     return !isNaN(poker.votes[person.person.id]) && poker.votes[person.person.id] !== null
   };
-});
-
-app.controller('ParticipantsController', function($scope, poker) {
-  $scope.poker = poker;
 });
 
 function initApp() {
